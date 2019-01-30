@@ -15,7 +15,7 @@ class Siab
         $this->url = 'http://ambientepruebas.asistenciabolivar.com:805/SIAB-Core-CienCuadrasApi-web/crearCaso';
     }
 
-    function crearUserCiencuadras(){
+    function crearUserCiencuadras($data = []){
 
         $soap_request  = "<?xml version=\"1.0\"?>\n";
         $soap_request .= "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ws=\"http://ws.ciencuadras.siab.asistenciabolivar.com.co/\">\n";
@@ -74,7 +74,7 @@ class Siab
         curl_close ($ch);
         echo "Responce : ".$response;
 
-
+        return $response;
     }
 
 }

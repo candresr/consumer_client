@@ -6,3 +6,13 @@
  * Time: 11:05 AM
  */
 
+namespace ConsumerClient\Resource;
+
+class Terceros{
+
+
+    public function __construct()
+    {
+    }
+
+}
