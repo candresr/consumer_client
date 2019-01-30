@@ -1,6 +1,6 @@
 <?php
 
-require_once  __DIR__.'/../vendor/autoload.php';
+//require_once  __DIR__.'/../vendor/autoload.php';
 require_once __DIR__.'/Auth.php';
 require_once __DIR__.'/Util/AlmString.php';
 require_once __DIR__.'/Util/AlmArray.php';
