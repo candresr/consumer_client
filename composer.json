@@ -1,6 +1,6 @@
 {
     "type": "package",
-    "name": "ciencuadras/consumer-client",
+    "name": "consultores/consumer-client",
     "description": "Cliente que consume las API's Construdata, SIAB, Terceros",
     "keywords": ["ciencuadras", "http", "rest", "HTTP client","SOAP", "Construdata", "SIAB", "Terceros"],
     "authors": [
