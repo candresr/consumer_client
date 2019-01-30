@@ -17,14 +17,44 @@ class Siab
 
     function crearUserCiencuadras($data = []){
 
+
+        $soap_request = $this->buildXml($data);
+
+        ob_start();
+        $out = fopen('php://output', 'w');
+        $ch = curl_init($this->url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $soap_request);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_STDERR, $out);
+        $response = curl_exec($ch);
+
+        fclose($out);
+        $debug = ob_get_clean();
+        echo "DEBUG => ".$debug;
+
+        curl_close ($ch);
+        echo "Responce : ".$response;
+
+        return $response;
+    }
+
+    /**
+     * Construye el xml para crear caso
+     * @param $data
+     */
+    private function buildXml($data = []){
+
         $soap_request  = "<?xml version=\"1.0\"?>\n";
         $soap_request .= "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ws=\"http://ws.ciencuadras.siab.asistenciabolivar.com.co/\">\n";
         $soap_request .= "<soapenv:Header/>\n";
         $soap_request .= "<soapenv:Body>\n";
         $soap_request .= "<ws:crearCasoCiencuadras>\n";
         $soap_request .= "<datosCaso>\n";
-        $soap_request .= "<tipoAlistamiento>cortesia</tipoAlistamiento>\n";
-        $soap_request .= "<ciudadServicio>14000</ciudadServicio>\n";
+        $soap_request .= "<tipoAlistamiento>{{tipoAlistamiento}}</tipoAlistamiento>\n";
+        $soap_request .= "<ciudadServicio>{{ciudadServicio}}</ciudadServicio>\n";
         $soap_request .= "<direccionInmueble>123 calle false</direccionInmueble>\n";
         $soap_request .= "<barrioInmueble>bronx</barrioInmueble>\n";
         $soap_request .= "<nombreContacto>Homero</nombreContacto>\n";
@@ -54,27 +84,16 @@ class Siab
         $soap_request .= "</soapenv:Body>\n";
         $soap_request .= "</soapenv:Envelope>\n";
 
+        foreach ($data as $key => $value){
+            $pattern = sprintf("\{\{%s\}\}", $key);
+            $soap_request = preg_replace($pattern, $value, $soap_request);
+        }
 
-//    $fields_query = http_build_query($crearCaso);
-        ob_start();
-        $out = fopen('php://output', 'w');
-        $ch = curl_init($this->url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $soap_request);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_VERBOSE, true);
-        curl_setopt($ch, CURLOPT_STDERR, $out);
-        $response = curl_exec($ch);
+        var_dump($soap_request);die();
 
-        fclose($out);
-        $debug = ob_get_clean();
-        echo "DEBUG => ".$debug;
 
-        curl_close ($ch);
-        echo "Responce : ".$response;
+        return $soap_request;
 
-        return $response;
     }
 
 }

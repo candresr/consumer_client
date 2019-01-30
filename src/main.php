@@ -1,6 +1,10 @@
 <?php
 
-namespace ConsumerClient\Resource;
+namespace ConsumerClient;
+
+use ConsumerClient\Resource\Construdata;
+use ConsumerClient\Resource\Siab;
+use ConsumerClient\Resource\Terceros;
 
 class Main{
 

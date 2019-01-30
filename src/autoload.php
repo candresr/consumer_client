@@ -8,3 +8,5 @@ require_once __DIR__.'/Util/AlmDate.php';
 require_once __DIR__.'/Util/AlmValidator.php';
 require_once __DIR__.'/Resource/Terceros.php';
 require_once __DIR__.'/Resource/Siab.php';
+require_once __DIR__.'/Resource/Construdata.php';
+require_once __DIR__.'/main.php';
