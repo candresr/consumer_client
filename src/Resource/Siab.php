@@ -8,9 +8,13 @@
 
 namespace ConsumerClient\Resource;
 
+use ConsumerClient\Util\AlmArray;
+use GuzzleHttp\Client;
+
 class Siab
 {
-    private $url;
+    private $clientRest;
+
     private $plantilla = array(
         'tipoAlistamiento' => null,
         'ciudadServicio' => null,
@@ -39,16 +43,19 @@ class Siab
         'nombreContactoInmobiliaria' => null,
         'numeroContactoInmobiliaria' => null
     );
-    public function __construct(){
-        $this->url = 'http://ambientepruebas.asistenciabolivar.com:805/SIAB-Core-CienCuadrasApi-web/crearCaso';
+    public function __construct($data = []){
+        $this->clientRest = new Client();
     }
 
-    function crearUserCiencuadras($data = []){
-        
-        $soap_request = $this->buildXml($data);
+    function crearUserCiencuadras($option = []){
+
+        $url  = AlmArray::get($option, 'url');
+        $function  = AlmArray::get($option, 'function');
+
+        $soap_request = $this->buildXml($option['data']);
 
         $out = fopen('php://output', 'w');
-        $ch = curl_init($this->url);
+        $ch = curl_init($url.$function);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $soap_request);
@@ -112,6 +119,18 @@ class Siab
         }
 
         return $soap_request;
+    }
+
+    public function estadoCaso($option)
+    {
+        $url  = AlmArray::get($option, 'url');
+        $function  = AlmArray::get($option, 'function');
+
+        $res = $this->clientRest->post($url . $function,  [
+            'json' => $option['data']
+        ]);
+
+        return json_decode($res->getBody()->getContents());
     }
 
 }

@@ -29,5 +29,23 @@ class Main{
         return $this->siab->crearUserCiencuadras($data);
     }
 
+    /**
+     * Consultar un caso en Siab
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function estadoCaso($data = []){
+        return $this->siab->estadoCaso($data);
+    }
 
+    /**
+     * Consultar lista de precion en Construdata
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function listarCategorias($data = []){
+        return $this->construdata->listarCategorias($data);
+    }
 }

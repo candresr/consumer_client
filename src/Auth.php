@@ -15,6 +15,32 @@ class Auth {
     private $username;
     private $password;
     private $identificacion;
+    private $access_token = null;
+
+    /**
+     * @return null
+     */
+    public function getAccessToken()
+    {
+        return $this->access_token;
+    }
+
+    /**
+     * @param null $access_token
+     */
+    public function setAccessToken($access_token)
+    {
+        $this->access_token = $access_token;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSessionPath()
+    {
+        return $this->sessionPath;
+    }
+
 
     public function __construct($data){
 
@@ -22,6 +48,7 @@ class Auth {
         $this->password = AlmArray::get($data, 'password');
         $this->identificacion = AlmArray::get($data, 'identificacion');
         $this->client = new Client();
+        $this->loadToken();
     }
 
     public function auth()
@@ -34,7 +61,7 @@ class Auth {
                 'clave' => $this->password
             )
         ]);
-        ;
+
         return $this->createToken($res);
     }
     public function createToken($res){
@@ -46,16 +73,19 @@ class Auth {
             chmod(__DIR__.'/var',0777);
         }
 
-        $token = $res['Resultado']['Token'];
+        $token = $res; //['Resultado']['Token'];
         AlmArray::saveToFile($token, __DIR__.'/'.$this->sessionPath);
         return true;
     }
 
-    /**
-     * @return string
-     */
-    public function getSessionPath()
-    {
-        return $this->sessionPath;
+
+
+    public function loadToken(){
+
+        $token = AlmArray::loadFromFile( __DIR__.'/'.$this->sessionPath);
+
+        $this->access_token = AlmArray::get($token['Resultado'], 'Token');
+        $this->setAccessToken($this->access_token);
+
     }
 }
