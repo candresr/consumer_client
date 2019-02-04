@@ -40,12 +40,52 @@ class Main{
     }
 
     /**
-     * Consultar lista de precion en Construdata
+     * Consultar listados en Construdata
      *
      * @param array $data
      * @return mixed
      */
     public function listarCategorias($data = []){
         return $this->construdata->listarCategorias($data);
+    }
+
+    /**
+     * Crear Cotizacion en Construdata
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function crearCotizacion($data = []){
+        return $this->construdata->crearCotizacion($data);
+    }
+
+    /**
+     * Editar Cotizacion en Construdata
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function editarCotizacion($data = []){
+        return $this->construdata->editarCotizacion($data);
+    }
+
+    /**
+     * Agregar cantidad en Construdata
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function agregarCantidad($data = []){
+        return $this->construdata->agregarCantidad($data);
+    }
+
+    /**
+     * Consultar Cotizacion en Construdata
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function consultarCotizacion($data = []){
+        return $this->construdata->consultarCotizacion($data);
     }
 }

@@ -21,16 +21,58 @@ class Construdata
     }
 
     public function listarCategorias($data){
-
-        $token = AlmArray::get($data, 'token');
+        
         $url = AlmArray::get($data, 'url');
         $function = AlmArray::get($data, 'function');
-        $info = AlmArray::get($data, 'data') ? AlmArray::get($data, 'data') : '';
-dump($info);
+
         $res = $this->client->get($url . $function, [
             'query' => $data
         ]);
         return  json_decode($res->getBody()->getContents(), true);
+    }
 
+    public function crearCotizacion($data){
+
+        $url = AlmArray::get($data, 'url');
+        $function = AlmArray::get($data, 'function');
+
+        $res = $this->client->post($url . "Cotizacion/" .$function, [
+            'query' => $data['data']
+        ]);
+        return  json_decode($res->getBody()->getContents(), true);
+    }
+
+    public function editarCotizacion($data){
+
+        $url = AlmArray::get($data, 'url');
+        $function = AlmArray::get($data, 'function');
+
+        $res = $this->client->patch($url . "Cotizacion/" .$function, [
+            'query' => $data['data']
+        ]);
+        return  json_decode($res->getBody()->getContents(), true);
+    }
+
+    public function agregarCantidad($data){
+
+        $url = AlmArray::get($data, 'url');
+        $function = AlmArray::get($data, 'function');
+        $idCotizacion =  AlmArray::get($data, 'idCotizacion');
+
+        $res = $this->client->post($url . "Cotizacion/" . $idCotizacion . "/".$function, [
+            'query' => $data['data']
+        ]);
+        return  json_decode($res->getBody()->getContents(), true);
+    }
+
+    public function consultarCotizacion($data){
+
+        $url = AlmArray::get($data, 'url');
+        $idCotizacion =  AlmArray::get($data, 'idCotizacion');
+
+        $res = $this->client->get($url . "Cotizacion/" . $idCotizacion , [
+            'query' => $data['data']
+        ]);
+        return  json_decode($res->getBody()->getContents(), true);
     }
 }
