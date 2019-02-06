@@ -21,7 +21,7 @@ class Construdata
     }
 
     public function listarCategorias($data){
-        
+
         $url = AlmArray::get($data, 'url');
         $function = AlmArray::get($data, 'function');
 

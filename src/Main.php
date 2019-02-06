@@ -88,4 +88,15 @@ class Main{
     public function consultarCotizacion($data = []){
         return $this->construdata->consultarCotizacion($data);
     }
+
+    /**
+     * Crear, Actualizar y Consultar personas Naturales y Juridicos
+     * en API de TERCEROS
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function gestionTerceros($data = []){
+        return $this->terceros->gestionTerceros($data);
+    }
 }

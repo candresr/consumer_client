@@ -51,6 +51,10 @@ class Auth {
         $this->loadToken();
     }
 
+    public function isValid($data){
+
+    }
+
     public function auth()
     {
 

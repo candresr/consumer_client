@@ -8,11 +8,25 @@
 
 namespace ConsumerClient\Resource;
 
+use ConsumerClient\Util\AlmArray;
+use GuzzleHttp\Client;
+
 class Terceros{
 
-
+    private $client;
     public function __construct()
     {
+        $this->client = new Client();
     }
 
+    public function gestionTerceros($data){
+
+        $url = AlmArray::get($data, 'url');
+        $function = AlmArray::get($data, 'function');
+
+        $res = $this->client->post($url .$function, [
+            'json' => $data['info']
+        ]);
+        return  json_decode($res->getBody()->getContents(), true);
+    }
 }
