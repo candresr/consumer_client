@@ -11,7 +11,7 @@ class Auth {
 
     private $sessionPath = "/var/session";
     private $client;
-    private $api = "http://157.56.180.214/WebApi/api";
+    private $url;
     private $username;
     private $password;
     private $identificacion;
@@ -44,6 +44,7 @@ class Auth {
 
     public function __construct($data){
 
+        $this->url = AlmArray::get($data, 'url');
         $this->username = AlmArray::get($data, 'username');
         $this->password = AlmArray::get($data, 'password');
         $this->identificacion = AlmArray::get($data, 'identificacion');
@@ -58,7 +59,7 @@ class Auth {
     public function auth()
     {
 
-        $res = $this->client->post($this->api . "/Autentication",  [
+        $res = $this->client->post($this->url . "/Autentication",  [
             'query' => array(
                 'identificacion' => $this->identificacion,
                 'nombreusuario' => $this->username,
