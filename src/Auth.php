@@ -49,7 +49,6 @@ class Auth {
         $this->password = AlmArray::get($data, 'password');
         $this->identificacion = AlmArray::get($data, 'identificacion');
         $this->client = new Client();
-        $this->loadToken();
     }
 
     public function isValid($data){
@@ -74,12 +73,13 @@ class Auth {
         $res = json_decode($res->getBody()->getContents(), true);
 
         if (!file_exists(__DIR__.'/'.$this->sessionPath)){
-            mkdir(__DIR__.'/var');
+            mkdir(__DIR__.'/var',0777);
             chmod(__DIR__.'/var',0777);
         }
 
         $token = $res; //['Resultado']['Token'];
         AlmArray::saveToFile($token, __DIR__.'/'.$this->sessionPath);
+        $this->setAccessToken($this->loadToken());
         return true;
     }
 
@@ -90,7 +90,7 @@ class Auth {
         $token = AlmArray::loadFromFile( __DIR__.'/'.$this->sessionPath);
 
         $this->access_token = AlmArray::get($token['Resultado'], 'Token');
-        $this->setAccessToken($this->access_token);
+        return $this->access_token;
 
     }
 }
