@@ -1,5 +1,5 @@
 /vendor/*
 /.idea/*
 composer.lock
-/var/*
+var/*
 index.php
