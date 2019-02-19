@@ -24,10 +24,12 @@ class Construdata
 
         $url = AlmArray::get($data, 'url');
         $function = AlmArray::get($data, 'function');
+        $token = AlmArray::get($data, 'token');
 
         $res = $this->client->get($url . $function, [
-            'query' => $data
-        ]);
+          'query' => $data
+
+         ]);
         return  json_decode($res->getBody()->getContents(), true);
     }
 

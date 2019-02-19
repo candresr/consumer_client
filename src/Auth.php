@@ -15,7 +15,7 @@ class Auth {
     private $username;
     private $password;
     private $identificacion;
-    private $access_token = null;
+    public $access_token;
 
     /**
      * @return null
@@ -51,8 +51,13 @@ class Auth {
         $this->client = new Client();
     }
 
-    public function isValid($data){
-
+    public function isValid($token){
+        $res = $this->client->get($this->url . "/autenticacion/IsValid",  [
+            'query' => array(
+                'token' => $token
+            )
+        ]);
+        return  json_decode($res->getBody()->getContents(), true);
     }
 
     public function auth()
@@ -70,16 +75,17 @@ class Auth {
     }
     public function createToken($res){
 
-        $res = json_decode($res->getBody()->getContents(), true);
+        $result = json_decode($res->getBody()->getContents(), true);
 
         if (!file_exists(__DIR__.'/'.$this->sessionPath)){
             mkdir(__DIR__.'/var',0777);
             chmod(__DIR__.'/var',0777);
         }
 
-        $token = $res; //['Resultado']['Token'];
+        $token = $result; //['Resultado']['Token'];
         AlmArray::saveToFile($token, __DIR__.'/'.$this->sessionPath);
         $this->setAccessToken($this->loadToken());
+
         return true;
     }
 
