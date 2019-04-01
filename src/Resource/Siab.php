@@ -62,9 +62,12 @@ class Siab
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $response = curl_exec($ch);
 
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         fclose($out);
 
-        return $response;
+        if($httpcode>=200 && $httpcode<300) return $response;
+        else return false;
+
     }
 
     /**
