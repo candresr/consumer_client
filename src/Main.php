@@ -26,7 +26,7 @@ class Main{
      * @return mixed
      */
     public function crearCaso($data = []){
-        return $this->siab->crearUserCiencuadras($data);
+        return $this->siab->crearCaso($data);
     }
 
     /**

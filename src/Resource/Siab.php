@@ -47,7 +47,7 @@ class Siab
         $this->clientRest = new Client();
     }
 
-    function crearUserCiencuadras($option = []){
+    function crearCaso($option = []){
 
         $url  = AlmArray::get($option, 'url');
         $function  = AlmArray::get($option, 'function');
@@ -60,6 +60,7 @@ class Siab
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $soap_request);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
         $response = curl_exec($ch);
 
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
