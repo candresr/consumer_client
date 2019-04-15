@@ -130,11 +130,15 @@ class Siab
         $url  = AlmArray::get($option, 'url');
         $function  = AlmArray::get($option, 'function');
 
-        $res = $this->clientRest->post($url . $function,  [
-            'json' => $option['data']
-        ]);
+        try {
+            $res = $this->clientRest->post($url . $function, [
+                'json' => $option['data']
+            ]);
+            return json_decode($res->getBody()->getContents());
+        } catch (\Exception $e) {
 
-        return json_decode($res->getBody()->getContents());
+            return false;
+        }
     }
 
 }

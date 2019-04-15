@@ -24,9 +24,14 @@ class Terceros{
         $url = AlmArray::get($data, 'url');
         $function = AlmArray::get($data, 'function');
 
-        $res = $this->client->post($url .$function, [
-            'json' => $data['info']
-        ]);
-        return  json_decode($res->getBody()->getContents(), true);
+        try {
+            $res = $this->client->post($url . $function, [
+                'json' => $data['info']
+            ]);
+            return json_decode($res->getBody()->getContents(), true);
+        }catch (\Exception $e) {
+
+            return false;
+        }
     }
 }
