@@ -52,12 +52,18 @@ class Auth {
     }
 
     public function isValid($token){
-        $res = $this->client->get($this->url . "/autenticacion/IsValid",  [
-            'query' => array(
-                'token' => $token
-            )
-        ]);
-        return  json_decode($res->getBody()->getContents(), true);
+
+        try {
+            $res = $this->client->get($this->url . "/autenticacion/IsValid", [
+                'query' => array(
+                    'token' => $token
+                )
+            ]);
+            return json_decode($res->getBody()->getContents(), true);
+        }catch (\Exception $e) {
+
+            return false;
+        }
     }
 
     public function auth()
