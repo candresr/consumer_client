@@ -68,16 +68,19 @@ class Auth {
 
     public function auth()
     {
+        try {
+            $res = $this->client->post($this->url . "/Autentication", [
+                'query' => array(
+                    'identificacion' => $this->identificacion,
+                    'nombreusuario' => $this->username,
+                    'clave' => $this->password
+                )
+            ]);
+            return $this->createToken($res);
+        }catch (\Exception $e) {
 
-        $res = $this->client->post($this->url . "/Autentication",  [
-            'query' => array(
-                'identificacion' => $this->identificacion,
-                'nombreusuario' => $this->username,
-                'clave' => $this->password
-            )
-        ]);
-
-        return $this->createToken($res);
+            return false;
+        }
     }
     public function createToken($res){
 
