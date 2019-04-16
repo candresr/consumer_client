@@ -134,7 +134,7 @@ class Siab
             $res = $this->clientRest->post($url . $function, [
                 'json' => $option['data']
             ]);
-            return json_decode($res->getBody()->getContents());
+            return json_decode($res->getBody()->getContents(),true);
         } catch (\Exception $e) {
 
             return false;
