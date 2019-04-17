@@ -91,8 +91,8 @@ class Auth {
         $result = json_decode($res->getBody()->getContents(), true);
 
         if (!file_exists(__DIR__.'/'.$this->sessionPath)){
-            mkdir(__DIR__.'/var',0777);
-            chmod(__DIR__.'/var',0777);
+            mkdir(__DIR__.'var',0777);
+            chmod(__DIR__.'var',0777);
         }
 
         $token = $result; //['Resultado']['Token'];
