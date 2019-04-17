@@ -134,8 +134,13 @@ class AlmArray
     public static function saveToFile($array, $filename){
         $json = json_encode($array);
         $fh = fopen($filename, "w");
-        fwrite($fh, $json);
+
+        if(fwrite($fh, $json) === false){
+            return false;
+        }
+
         fclose($fh);
+        return true;
     }
 
     /**

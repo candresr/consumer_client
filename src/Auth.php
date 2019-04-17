@@ -76,7 +76,11 @@ class Auth {
                     'clave' => $this->password
                 )
             ]);
-            return $this->createToken($res);
+            if($this->createToken($res)){
+                return true;
+            }else{
+                return false;
+            }
         }catch (\Exception $e) {
 
             return false;
@@ -92,10 +96,14 @@ class Auth {
         }
 
         $token = $result; //['Resultado']['Token'];
-        AlmArray::saveToFile($token, __DIR__.'/'.$this->sessionPath);
-        $this->setAccessToken($this->loadToken());
+        $result = AlmArray::saveToFile($token, __DIR__.'/'.$this->sessionPath);
 
-        return true;
+        if($result) {
+            $this->setAccessToken($this->loadToken());
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
