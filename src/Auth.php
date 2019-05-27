@@ -90,7 +90,7 @@ class Auth {
 
         $result = json_decode($res->getBody()->getContents(), true);
 
-        if (!file_exists(__DIR__.'/'.$this->sessionPath)){
+        if (!file_exists(__DIR__.'/var')){
             mkdir(__DIR__.'/var',0777);
             chmod(__DIR__.'/var',0777);
         }
