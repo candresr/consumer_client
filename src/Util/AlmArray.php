@@ -137,7 +137,6 @@ class AlmArray
         fwrite($fh, $json);
 
         fclose($fh);
-        return true;
     }
 
     /**

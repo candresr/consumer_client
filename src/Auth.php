@@ -90,20 +90,15 @@ class Auth {
 
         $result = json_decode($res->getBody()->getContents(), true);
 
-        if (!file_exists(__DIR__.'/var')){
+        if (!file_exists(__DIR__.'/'.$this->sessionPath)){
             mkdir(__DIR__.'/var',0777);
             chmod(__DIR__.'/var',0777);
         }
 
         $token = $result; //['Resultado']['Token'];
-        $result = AlmArray::saveToFile($token, __DIR__.'/'.$this->sessionPath);
+        AlmArray::saveToFile($token, __DIR__.'/'.$this->sessionPath);
 
-        if($result) {
-            $this->setAccessToken($this->loadToken());
-            return true;
-        }else{
-            return false;
-        }
+        $this->setAccessToken($this->loadToken());
     }
 
 
