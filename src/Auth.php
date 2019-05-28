@@ -76,11 +76,7 @@ class Auth {
                     'clave' => $this->password
                 )
             ]);
-            if($this->createToken($res)){
-                return true;
-            }else{
-                return false;
-            }
+            $this->createToken($res);
         }catch (\Exception $e) {
 
             return false;
