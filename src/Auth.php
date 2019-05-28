@@ -77,6 +77,7 @@ class Auth {
                 )
             ]);
             $this->createToken($res);
+            return true;
         }catch (\Exception $e) {
 
             return false;
